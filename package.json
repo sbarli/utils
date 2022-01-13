@@ -4,7 +4,8 @@
   "description": "A collection of random utils I find myself needing",
   "main": "random-list-groups.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "get-icebreakers": "node scripts/get-random-icebreakers.js --pg 5 --select=true"
   },
   "author": "",
   "license": "ISC",
