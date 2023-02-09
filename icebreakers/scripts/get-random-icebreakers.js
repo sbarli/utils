@@ -1,28 +1,30 @@
-const argv = require('yargs/yargs')(process.argv.slice(2)).argv;
+const argv = require("yargs/yargs")(process.argv.slice(2)).argv;
 
-const icebreakers = require('../data/icebreaker-questions');
-const randomListGroups = require('../functions/random-list-groups');
-const { getRandomIntegerInclusive } = require('../functions/get-random-integer');
-const { getIcebreakers } = require('../functions/get-icebreakers');
+const icebreakers = require("../data/icebreaker-questions");
+const randomListGroups = require("../../functions/random-list-groups");
+const {
+  getRandomIntegerInclusive,
+} = require("../../functions/get-random-integer");
+const { getIcebreakers } = require("../get-icebreakers");
 
 const convertStringBooleanToBoolean = (initVal, exact = true) => {
-  if (initVal === 'true') {
+  if (initVal === "true") {
     return true;
   }
-  if (initVal === 'false') {
+  if (initVal === "false") {
     return false;
   }
   return undefined;
-}
+};
 
 const parsedArgs = Object.keys(argv).reduce((acc, key) => {
-  if (['am', 'al', 'select'].includes(key)) {
-    return {...acc, [key]: convertStringBooleanToBoolean(argv[key])};
+  if (["am", "al", "select"].includes(key)) {
+    return { ...acc, [key]: convertStringBooleanToBoolean(argv[key]) };
   }
-  if (key === 'pg') {
-    return {...acc, [key]: Number(argv[key])};
+  if (key === "pg") {
+    return { ...acc, [key]: Number(argv[key]) };
   }
-  return {...acc, [key]: argv[key]}
+  return { ...acc, [key]: argv[key] };
 }, {});
 
 const QUESTIONS_PER_GROUP = parsedArgs.pg ? parsedArgs.pg : 3;
@@ -30,12 +32,12 @@ const ALLOW_LESS_THAN = parsedArgs.al ? parsedArgs.al : false;
 const ALLOW_MORE_THAN = parsedArgs.am ? parsedArgs.am : false;
 const SELECT_ONE = parsedArgs.select ? parsedArgs.select : false;
 
-const selectedIcebreakers = getIcebreakers({ 
-  questionsPerGroup: QUESTIONS_PER_GROUP, 
-  allowLessThan: ALLOW_LESS_THAN, 
-  allowMoreThan: ALLOW_MORE_THAN, 
+const selectedIcebreakers = getIcebreakers({
+  questionsPerGroup: QUESTIONS_PER_GROUP,
+  allowLessThan: ALLOW_LESS_THAN,
+  allowMoreThan: ALLOW_MORE_THAN,
   selectOne: SELECT_ONE,
-})
+});
 
 console.log(`
   QUESTIONS:
@@ -43,7 +45,6 @@ console.log(`
 `);
 
 // const icebreakerGroups = randomListGroups(icebreakers, QUESTIONS_PER_GROUP, ALLOW_LESS_THAN, ALLOW_MORE_THAN);
-
 
 // if (SELECT_ONE) {
 //   const randomlySelectedGroup = getRandomIntegerInclusive(0, icebreakerGroups.length - 1);
